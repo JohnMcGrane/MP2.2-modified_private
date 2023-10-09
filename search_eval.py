@@ -11,7 +11,12 @@ def load_ranker(cfg_file):
     The parameter to this function, cfg_file, is the path to a
     configuration file used to load the index.
     """
-    return metapy.index.OkapiBM25()
+
+    # return metapy.index.OkapiBM25()
+    # return metapy.index.DirichletPrior(180)
+    # return metapy.index.JelinekMercer(1.45)
+    return metapy.index.PivotedLength(0.35)
+
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
@@ -47,8 +52,8 @@ if __name__ == '__main__':
             query.content(line.strip())
             results = ranker.score(idx, query, top_k)
             ndcg += ev.ndcg(results, query_start + query_num, top_k)
-            num_queries+=1
-    ndcg= ndcg / num_queries
-            
+            num_queries += 1
+    ndcg = ndcg / num_queries
+
     print("NDCG@{}: {}".format(top_k, ndcg))
     print("Elapsed: {} seconds".format(round(time.time() - start_time, 4)))
