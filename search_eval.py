@@ -7,15 +7,15 @@ import pytoml
 
 def load_ranker(cfg_file):
     """
-    Use this function to return the Ranker object to evaluate, 
+    Use this function to return the Ranker object to evaluate,
     The parameter to this function, cfg_file, is the path to a
     configuration file used to load the index.
     """
 
-    # return metapy.index.OkapiBM25()
-    # return metapy.index.DirichletPrior(180)
+    return metapy.index.OkapiBM25(k1=2.055, b=0.8, k3=0.001)
+    # return metapy.index.OkapiBM25(k1=2.055, b=0.8, k3=0.001) # 0.3632004003860273
     # return metapy.index.JelinekMercer(1.45)
-    return metapy.index.PivotedLength(0.35)
+    # return metapy.index.PivotedLength(0.35)
 
 
 if __name__ == '__main__':
